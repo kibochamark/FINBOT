@@ -62,7 +62,7 @@ class AgentExecuter:
 
         Settings.llm = Gemini(
             model="models/gemini-1.5-flash",
-            api_key=settings.GOOGLE_API_KEY,  # uses GOOGLE_API_KEY env var by default
+            api_key="AIzaSyAMs1Y4xmSrAadzADmZha-baQxTJg2Tq5Q",  # uses GOOGLE_API_KEY env var by default
         )
         Settings.embed_model = GeminiEmbedding(
             model_name=model_name,
@@ -70,7 +70,7 @@ class AgentExecuter:
 
     def Index_store(self):
         # Create Pinecone Vector Store
-        pc = Pinecone(api_key=settings.PINECONE_API_KEY)
+        pc = Pinecone(api_key="pcsk_23XXfP_GHWmfdm7WGfPMmTRZACC917oLVk8LxueaGXHp27p6hHaE9rzz9RMog6i8Z6jy7S")
 
         # pc.create_index(
         #     name="quickstart",
@@ -218,10 +218,14 @@ class AgentExecuter:
 
 
     def query(self, query):
-        agent= self.agent()
+        status, agent= self.agent()
 
         try:
-            return  200, agent.chat(query).response
+            if status == 200:
+                
+                return  200, agent.chat(query).response
+            else:
+                return 400, "Agent is not available"
         except Exception as e:
             return 400, e
 

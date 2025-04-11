@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 #     internal apps
     'rest_framework',
     'django_filters',
+    'adrf',
 
 
 #     apps
