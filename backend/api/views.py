@@ -28,10 +28,11 @@ class AgentViewset(viewsets.ViewSet):
         agent=AgentExecuter()
 
         try:
-            result = agent.query(query)
+            x,result = agent.query(query)
+            print(result)
             return Response({
                 "result":result
-            }, 200)
+            }, x)
         except Exception as e:
 
             return Response({

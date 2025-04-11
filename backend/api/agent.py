@@ -33,6 +33,8 @@ from llama_index.core.tools.tool_spec.load_and_search import (
 from llama_index.tools.wikipedia import WikipediaToolSpec
 from llama_index.core.agent import FunctionCallingAgentWorker
 from llama_index.core.agent import AgentRunner
+import os
+
 
 # define my env variables
 
@@ -58,6 +60,8 @@ class AgentExecuter:
 
         Here we are defining our llm model and our text embedding model 
         """
+        os.environ["GOOGLE_API_KEY"]="AIzaSyAMs1Y4xmSrAadzADmZha-baQxTJg2Tq5Q"
+  
         model_name = "models/text-embedding-004"
 
         Settings.llm = Gemini(
@@ -169,7 +173,10 @@ class AgentExecuter:
             )
 
             response = query_engine.query(query)
-            return response
+            
+            return {
+                "response":str(response)
+            }
 
         vector_query_tool = FunctionTool.from_defaults(
             name="document_retrieval",
