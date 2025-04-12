@@ -30,9 +30,36 @@ class AgentViewset(viewsets.ViewSet):
         try:
             x,result = agent.query(query)
             print(result)
+            serializer= AgentSerializer(data={
+                "query":query,
+                "response":result
+            })
+
+            print(serializer.is_valid())
+
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response({
+                    "result":result
+                }, x)
+            else:
+                return Response(serializer.errors, 400)
+        except Exception as e:
+
             return Response({
-                "result":result
-            }, x)
+                "error":e
+            }, 400)
+
+
+    def get_history(self, request):
+
+        try:
+            agent_query_responses = Agent.objects.all()
+
+            serializer = AgentSerializer(agent_query_responses, many=True)
+
+            return Response(serializer.data, 200)
+        
         except Exception as e:
 
             return Response({
