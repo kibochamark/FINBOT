@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-om2nu&n#3-f3i$fho+_l06@!2y2wm4(2l_0y_9vf0%16^a0#^+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+WSGI_APPLICATION = 'backend.wsgi.app'
 
 
 # Application definition
